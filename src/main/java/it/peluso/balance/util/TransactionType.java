@@ -1,5 +1,8 @@
-package it.peluso.balance.model;
+package it.peluso.balance.util;
 
+import lombok.Getter;
+
+@Getter
 public enum TransactionType {
 
     IN("in"),
