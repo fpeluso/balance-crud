@@ -46,7 +46,7 @@ public class TransactionService {
             Transaction transaction = TransactionUtil.transactionRequestToEntity(transactionRequest);
             repository.save(transaction);
             return new ResponseEntity<>(
-                    new TransactionResponse("object created"),
+                    new TransactionResponse(transactionRequest, "object created"),
                     HttpStatus.CREATED
             );
         } catch (InvalidBusinessTransactionException e) {
