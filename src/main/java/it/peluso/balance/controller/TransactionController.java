@@ -2,6 +2,7 @@ package it.peluso.balance.controller;
 
 import it.peluso.balance.entity.Transaction;
 import it.peluso.balance.exception.InvalidBusinessTransactionException;
+import it.peluso.balance.model.TransactionModel;
 import it.peluso.balance.model.request.TransactionRequest;
 import it.peluso.balance.model.response.CustomError;
 import it.peluso.balance.model.response.TransactionResponse;
@@ -38,9 +39,15 @@ public class TransactionController {
             @RequestBody TransactionRequest request
             ) {
         try {
-            return service.saveTransaction(request);
+            TransactionModel model = toTransactionModel(request);
+            TransactionModel result = service.saveTransaction(model);
+            return new ResponseEntity<>(new TransactionResponse(request, "Created"), HttpStatus.CREATED);
         } catch (InvalidBusinessTransactionException e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); //TODO: I'm not convinced about that
         }
+    }
+
+    private TransactionModel toTransactionModel(TransactionRequest request) {
+        return null;
     }
 }

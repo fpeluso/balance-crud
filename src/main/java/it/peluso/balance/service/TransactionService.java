@@ -1,10 +1,12 @@
 package it.peluso.balance.service;
 
 import it.peluso.balance.exception.InvalidBusinessTransactionException;
+import it.peluso.balance.model.TransactionModel;
 import it.peluso.balance.model.request.TransactionRequest;
 import it.peluso.balance.entity.Transaction;
 import it.peluso.balance.model.response.TransactionResponse;
 import it.peluso.balance.repository.TransactionRepository;
+import it.peluso.balance.repository.TransactionRepository2;
 import it.peluso.balance.util.TransactionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +20,10 @@ import java.util.List;
 @Service
 public class TransactionService {
 
-    private final TransactionRepository repository;
+    private final TransactionRepository2 repository;
 
     @Autowired
-    public TransactionService(TransactionRepository repository){
+    public TransactionService(TransactionRepository2 repository){
         this.repository = repository;
     }
 
@@ -40,16 +42,13 @@ public class TransactionService {
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
-    public ResponseEntity<TransactionResponse> saveTransaction(TransactionRequest transactionRequest)
+    public TransactionModel saveTransaction(TransactionModel model)
             throws InvalidBusinessTransactionException {
         try {
-            Transaction transaction = TransactionUtil.transactionRequestToEntity(transactionRequest);
-            repository.save(transaction);
-            return new ResponseEntity<>(
-                    new TransactionResponse(transactionRequest, "object created"),
-                    HttpStatus.CREATED
-            );
-        } catch (InvalidBusinessTransactionException e) {
+//            Transaction transaction = TransactionUtil.transactionRequestToEntity(transactionRequest);
+            repository.save(model);
+            return model;
+        } catch (Exception e) {
             throw new InvalidBusinessTransactionException(e.getMessage());
         }
     }
