@@ -4,7 +4,6 @@ import it.peluso.balance.model.TransactionModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 
 @Getter
 @Setter

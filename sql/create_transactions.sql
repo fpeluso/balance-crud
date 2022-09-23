@@ -5,16 +5,17 @@
 CREATE TABLE IF NOT EXISTS public.transactions
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    "transactionType" transaction_type NOT NULL,
+    transaction_type text COLLATE pg_catalog."default" NOT NULL,
     amount integer NOT NULL,
-    "transactionDate" date NOT NULL,
-    description character(255)[] COLLATE pg_catalog."default",
+    transaction_date date NOT NULL,
+    description text COLLATE pg_catalog."default",
     category_id integer,
     CONSTRAINT transactions_pkey PRIMARY KEY (id),
     CONSTRAINT fk_category FOREIGN KEY (category_id)
         REFERENCES public.category (category_id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT transactions_transaction_type_check CHECK (transaction_type = ANY (ARRAY['IN'::text, 'OUT'::text]))
 )
 
 TABLESPACE pg_default;
