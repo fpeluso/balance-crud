@@ -33,4 +33,5 @@ build/
 .vscode/
 
 ### OTHER FILES ###
-/src/main/resources/application.properties
+#/src/main/resources/application.properties
+/src/main/resources/application.properties.lccal
