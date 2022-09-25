@@ -10,7 +10,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,15 +37,14 @@ public class TransactionControllerTestClass {
         Map<String, LocalDate> requestMap = new HashMap<>();
         requestMap.put("startDate",startDate);
         requestMap.put("endDate", endDate);
-        URL url = new URL("http://localhost:" +
+        String url = "http://localhost:" +
                         port +
                         "/api/v1/transactions?" +
                         "startDate={startDate}&" +
-                        "endDate={endDate}"
-                );
+                        "endDate={endDate}";
 
         ResponseEntity<TransactionResponse> response = restTemplate.getForEntity(
-                url.toString(),
+                url,
                 TransactionResponse.class,
                 requestMap
         );
