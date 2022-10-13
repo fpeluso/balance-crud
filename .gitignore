@@ -34,4 +34,4 @@ build/
 
 ### OTHER FILES ###
 #/src/main/resources/application.properties
-/src/main/resources/application.properties.local
+/src/main/resources/application-local.properties
